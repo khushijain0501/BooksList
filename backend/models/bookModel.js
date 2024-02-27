@@ -17,7 +17,12 @@ const bookSchema=mongoose.Schema(
         notes:{
             type:String,
             required:false
+        },
+        rating:{
+            type:Number,
+            required:false
         }
+
     },
     {
         timestamps:true,

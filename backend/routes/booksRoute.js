@@ -5,7 +5,7 @@ const router=express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    if (!req.body.title || !req.body.author || !req.body.publishYear|| !req.body.notes) {
+    if (!req.body.title || !req.body.author || !req.body.publishYear|| !req.body.notes||!req.body.rating) {
       return res
         .status(400)
         .send({ message: "Send all required fields:title,author,publishYear" });
@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
       author: req.body.author,
       publishYear: req.body.publishYear,
       notes:req.body.notes,
+      rating:req.body.rating,
     };
     const book = await Book.create(newBook);
     return res.status(201).send(book);
@@ -48,7 +49,7 @@ router.get("/details/:id", async (req, res) => {
 //update based on id
 router.put("/edit/:id", async (req, res) => {
   try {
-    if (!req.body.title || !req.body.author || !req.body.publishYear|| !req.body.notes)
+    if (!req.body.title || !req.body.author || !req.body.publishYear)
       return res.status(400).send({ message: "Send all required fields" });
     const { id } = req.params;
     const result = await Book.findByIdAndUpdate(id, req.body);
